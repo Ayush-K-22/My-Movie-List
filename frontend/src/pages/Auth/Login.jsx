@@ -5,6 +5,7 @@ import Loader from "../../component/Loader";
 import { setCredentials } from "../../redux/features/auth/authSlice";
 import { useLoginMutation } from "../../redux/api/users";
 import { toast } from "react-toastify";
+import LoginImage from "./images/Login.jpg";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -39,40 +40,38 @@ const Login = () => {
     }
   };
 
-  return (
-    <div>
-      <section className="pl-[10rem] flex flex-wrap">
-        <div className="mr-[4rem] mt-[5rem]">
-          <h1 className="text-2xl font-semibold mb-4">Sign In</h1>
+  
+return (
+  <div className="min-h-screen flex items-center justify-center bg-gray-900">
+    <section className="flex flex-col md:flex-row w-full">
+      {/* Left: Login Form */}
+      <div className="w-full md:w-1/2 flex items-center justify-center p-8 md:p-16">
+        <div className="w-full max-w-md">
+          <h1 className="text-3xl font-semibold text-white mb-6">Sign In</h1>
 
-          <form onSubmit={submitHandler} className="container w-[40rem]">
-            <div className="my-[2rem]">
-              <label
-                htmlFor="email"
-                className="block text-sm font-medium text-white"
-              >
+          <form onSubmit={submitHandler}>
+            <div className="mb-6">
+              <label htmlFor="email" className="block text-sm font-medium text-white mb-1">
                 Email Address
               </label>
               <input
                 type="email"
                 id="email"
-                className="mt-1 p-2 border rounded w-full"
+                className="p-2 border rounded w-full"
                 placeholder="Enter Email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>
-            <div className="my-[2rem]">
-              <label
-                htmlFor="password"
-                className="block text-sm font-medium text-white"
-              >
+
+            <div className="mb-6">
+              <label htmlFor="password" className="block text-sm font-medium text-white mb-1">
                 Password
               </label>
               <input
                 type="password"
                 id="password"
-                className="mt-1 p-2 border rounded w-full"
+                className="p-2 border rounded w-full"
                 placeholder="Enter Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -82,34 +81,37 @@ const Login = () => {
             <button
               disabled={isLoading}
               type="submit"
-              className="bg-teal-500 text-white px-4 py-2 rounded cursor-pointer my-[1rem]"
+              className="bg-teal-500 text-white px-4 py-2 rounded w-full"
             >
               {isLoading ? "Signing In ..." : "Sign In"}
             </button>
+
             {isLoading && <Loader />}
           </form>
 
-          <div className="mt-4">
-            <p className="text-white">
-              New Customer?{" "}
-              <Link
-                to={redirect ? `/register?redirect=${redirect}` : "/register"}
-                className="text-teal-500 hover:underline"
-              >
-                Register
-              </Link>
-            </p>
-          </div>
+          <p className="text-white mt-4">
+            New Customer?{" "}
+            <Link
+              to={redirect ? `/register?redirect=${redirect}` : "/register"}
+              className="text-teal-400 hover:underline"
+            >
+              Register
+            </Link>
+          </p>
         </div>
+      </div>
 
+      {/* Right: Image */}
+      <div className="hidden md:block w-1/2 p-4">
         <img
-          src="https://images.unsplash.com/photo-1485095329183-d0797cdc5676?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-          alt=""
-          className="h-[65rem] w-[55%] xl:block md:hidden sm:hidden rounded-lg"
+          src={LoginImage}
+          alt="Login Visual"
+          className="object-cover h-full w-full rounded-lg"
         />
-      </section>
-    </div>
-  );
+      </div>
+    </section>
+  </div>
+);
 };
 
 export default Login;
